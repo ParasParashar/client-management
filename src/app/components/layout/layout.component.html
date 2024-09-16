@@ -1,1 +1,45 @@
-<p>layout works!</p>
+<nav class="bg-slate-950 p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo -->
+    <a class="text-white text-lg font-semibold font-serif" routerLink="/">
+      Client-X
+    </a>
+    <!-- Navbar Links -->
+    <ul class="flex items-center space-x-6 text-white">
+      <li>
+        <a
+          routerLink="/master"
+          routerLinkActive="font-bold  text-gray-400"
+          class="hover:text-gray-400"
+          >Master</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/client"
+          routerLinkActive="font-bold  text-gray-400"
+          class="hover:text-gray-400"
+          >Clients</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/client-project"
+          routerLinkActive="font-bold  text-gray-400"
+          class="hover:text-gray-400"
+          >Client Projects</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/employee"
+          routerLinkActive="font-bold  text-gray-400"
+          class="hover:text-gray-400"
+          >Employee</a
+        >
+      </li>
+      <button (click)="onLogout()">Logout</button>
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>
