@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,body,html{
+height: 100%;
+width: 100%;
+@apply bg-neutral-800 text-gray-50
+}
