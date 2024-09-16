@@ -1,0 +1,204 @@
+<div class="flex flex-col md:flex-row w-full h-full justify-center gap-5 p-3">
+  <section class="w-full max-w-4xl flex-1 overflow-y-auto">
+    <h2 class="text-2xl font-bold mb-4 text-center">Client List</h2>
+    <table class="min-w-full table-auto rounded-lg">
+      <thead>
+        <tr class="bg-gray-700 text-white">
+          <th class="py-3 px-4 text-left">S.no</th>
+          <th class="py-3 px-4 text-left">Person Name</th>
+          <th class="py-3 px-4 text-left">Company Name</th>
+          <th class="py-3 px-4 text-left">City</th>
+          <th class="py-3 px-4 text-left">Contact Number</th>
+          <th class="py-3 px-4 text-left">Pin Code</th>
+          <th class="py-3 px-4 text-left">GST No.</th>
+          <th class="py-3 px-4 text-left">Edit.</th>
+        </tr>
+      </thead>
+      @if (isLoader) {
+      <app-loader-component></app-loader-component>
+      }@else {
+      <tbody>
+        <tr
+          *ngFor="let item of clientList; let i = index"
+          class="even:bg-slate-800 hover:bg-opacity-80 bg-slate-900 transition-colors p-3"
+        >
+          <td class="px-4 py-2">{{ i + 1 }}</td>
+          <td class="px-4 py-2">{{ item.contactPersonName }}</td>
+          <td class="px-4 py-2">{{ item.companyName }}</td>
+          <td class="px-4 py-2">{{ item.city }}</td>
+          <td class="px-4 py-2">{{ item.contactNo }}</td>
+          <td class="px-4 py-2">{{ item.pincode }}</td>
+          <td class="px-4 py-2">{{ item.gstNo }}</td>
+          <td class="space-x-3">
+            <button
+              class="bg-transparent p-0 rounded-full"
+              (click)="onEditClient(item)"
+            >
+              ✏️
+            </button>
+            <button
+              class="bg-transparent rounded-full ring-amber-500 p-0"
+              (click)="onDeleteClient(item.clientId)"
+            >
+              ❌
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      }
+    </table>
+  </section>
+
+  <section class="max-w-3xl p-6 bg-gray-900 shadow-lg rounded-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">Client Submission Form</h2>
+    <form>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="col-span-2 md:col-span-1">
+          <label class="block font-medium text-slate-300 mb-1"
+            >Contact Person Name</label
+          >
+          <!-- this is how we perfrom the validation -->
+          <input
+            [(ngModel)]="clientObj.contactPersonName"
+            name="contactPersonName"
+            #personName="ngModel"
+            required
+            minlength="5"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter contact person name"
+          />
+          @if(personName.touched){
+          <div class="text-red-500">
+            @if (personName?.errors?.['required']) {
+            <span class="text-xs text-red-400">Name is required</span>
+            } @if (personName?.errors?.['minlength']) {
+            <span class="text-xs text-red-400"
+              >Minimum 5 chracter is required</span
+            >
+            }
+          </div>
+          }
+        </div>
+
+        <div class="col-span-2">
+          <label class="block font-medium text-slate-300 mb-1"
+            >Company Name</label
+          >
+          <input
+            [(ngModel)]="clientObj.companyName"
+            name="companyName"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter company name"
+          />
+        </div>
+
+        <div class="col-span-2">
+          <label class="block font-medium text-slate-300 mb-1">Address</label>
+          <input
+            [(ngModel)]="clientObj.address"
+            name="address"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter address"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">City</label>
+          <input
+            [(ngModel)]="clientObj.city"
+            name="city"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter city"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Pincode</label>
+          <input
+            [(ngModel)]="clientObj.pincode"
+            name="pincode"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter pincode"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">State</label>
+          <input
+            [(ngModel)]="clientObj.state"
+            name="state"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter state"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >GST Number</label
+          >
+          <input
+            [(ngModel)]="clientObj.gstNo"
+            name="gstNo"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter GST number"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Employee Strength</label
+          >
+          <input
+            type="number"
+            [(ngModel)]="clientObj.employeeStrength"
+            name="employeeStrength"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter employee strength"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Contact Number</label
+          >
+          <input
+            [(ngModel)]="clientObj.contactNo"
+            name="contactNo"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter contact number"
+          />
+        </div>
+
+        <div class="col-span-2 md:col-span-1">
+          <label class="block font-medium text-slate-300 mb-1"
+            >Registration Number</label
+          >
+          <input
+            [(ngModel)]="clientObj.regNo"
+            name="regNo"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter registration number"
+          />
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-6 w-full flex gap-2 text-center">
+        <button
+          (click)="onReset()"
+          type="submit"
+          class="bg-rose-600 w-full text-white px-6 py-2 rounded-lg hover:opacity-75 focus:outline-none"
+        >
+          Reset
+        </button>
+        <button
+          (click)="onSaveClient()"
+          type="submit"
+          class="bg-blue-600 w-full text-white px-6 py-2 rounded-lg hover:bg-blue-700 focus:outline-none"
+        >
+          {{ clientObj.clientId !== 0 ? "Update Client" : "Create Client" }}
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

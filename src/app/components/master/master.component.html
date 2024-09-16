@@ -1,0 +1,25 @@
+<div class="space-y-3 p-3">
+  <div class="space-x-3">
+    <button
+      (click)="switchTab('roles')"
+      [ngClass]="currentComponent === 'roles' ? 'bg-blue-500' : 'bg-red-600'"
+    >
+      Role
+    </button>
+    <button
+      (click)="switchTab('designation')"
+      [ngClass]="
+        currentComponent === 'designation' ? 'bg-blue-500' : 'bg-red-600'
+      "
+    >
+      Designation
+    </button>
+  </div>
+
+  <div class="w-full" *ngIf="currentComponent == 'roles'">
+    <app-roles></app-roles>
+  </div>
+  <div class="w-full" *ngIf="currentComponent == 'designation'">
+    <app-designation></app-designation>
+  </div>
+</div>

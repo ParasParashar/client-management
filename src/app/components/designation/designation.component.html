@@ -1,1 +1,24 @@
-<p>designation works!</p>
+<div class="w-full h-full">
+  <div class="overflow-x-auto">
+    @if(isLoader){
+    <app-loader-component></app-loader-component>
+    } @else {
+
+    <table class="min-w-full table-auto">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 text-left text-white bg-black">S.NO</th>
+          <th class="px-4 py-2 text-left text-white bg-black">Role</th>
+        </tr>
+      </thead>
+      <!-- Table body -->
+      <tbody>
+        <tr *ngFor="let item of designationList; let i = index">
+          <td class="border px-4 py-2">{{ i + 1 }}</td>
+          <td class="border px-4 py-2">{{ item.designation }}</td>
+        </tr>
+      </tbody>
+    </table>
+    }
+  </div>
+</div>

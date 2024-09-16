@@ -1,2 +1,28 @@
-<p>roles works!</p>
-<div>{{ firstName }}</div>
+<!-- <div>{{ firstName }}</div>
+  <input type="text" [value]="firstName" />
+  <h3>{{ date.toLocaleDateString() }}</h3>
+  <div>
+    <h3>Using Ng model</h3>
+    <input type="text" [(ngModel)]="firstName" />
+  </div>
+
+  <div class="col-3"></div> -->
+<div class="w-full h-full">
+  <div class="overflow-x-auto">
+    <table class="min-w-full table-auto">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 text-left text-white bg-black">S.NO</th>
+          <th class="px-4 py-2 text-left text-white bg-black">Role</th>
+        </tr>
+      </thead>
+      <!-- Table body -->
+      <tbody>
+        <tr *ngFor="let item of roleList; let i = index">
+          <td class="border px-4 py-2">{{ i + 1 }}</td>
+          <td class="border px-4 py-2">{{ item.role }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

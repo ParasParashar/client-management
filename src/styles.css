@@ -7,3 +7,12 @@ height: 100%;
 width: 100%;
 @apply bg-neutral-800 text-gray-50
 }
+
+input,select,option{
+    @apply bg-black text-white p-1 px-2 rounded-lg text-lg
+}
+
+button{
+    @apply bg-blue-500 text-white p-1 px-2  rounded-lg text-lg hover:opacity-75 hover:shadow-lg hover:ring-1
+
+}
