@@ -22,4 +22,16 @@ export class ClientService {
   deleteClientById(id: number) {
     return this.http.delete<IApiResponse>(environment.API_URL + 'DeleteClientByClientId?clientId=' + id)
   }
+
+  // services for the project page with eh employes
+  getAllEmployee(): Observable<IApiResponse> {
+    return this.http.get<IApiResponse>(environment.API_URL + 'GetAllEmployee')
+  }
+  addClientProjectUpdate(obj: Client) {
+    return this.http.post<IApiResponse>(environment.API_URL + 'AddUpdateClientProject', obj)
+  }
+  getAllClientProjects(): Observable<IApiResponse> {
+    return this.http.get<IApiResponse>(environment.API_URL + 'GetAllClientProjects')
+
+  }
 }

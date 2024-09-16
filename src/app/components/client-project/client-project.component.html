@@ -1,1 +1,195 @@
-<p>client-project works!</p>
+<div class="flex flex-col md:flex-row w-full h-full justify-center gap-5 p-3">
+  <section class="w-full max-w-4xl flex-1 overflow-y-auto">
+    <h2 class="text-2xl font-bold mb-4 text-center">Project List</h2>
+    <table class="min-w-full table-auto rounded-lg">
+      <thead>
+        <tr class="bg-gray-700 text-white">
+          <th class="py-3 px-4 text-left">S.no</th>
+          <th class="py-3 px-4 text-left">Project name</th>
+          <th class="py-3 px-4 text-left">Company name</th>
+          <th class="py-3 px-4 text-left">Start date</th>
+          <th class="py-3 px-4 text-left">Employee name</th>
+          <th class="py-3 px-4 text-left">Employee Id</th>
+        </tr>
+      </thead>
+      @if (isLoader) {
+      <app-loader-component></app-loader-component>
+      } @else {
+      <tbody>
+        <tr
+          *ngFor="let item of clientProjects(); let i = index"
+          class="even:bg-slate-800 hover:bg-opacity-80 bg-slate-900 transition-colors p-3"
+        >
+          <td class="px-4 py-2">{{ i + 1 }}</td>
+          <td class="px-4 py-2">{{ item.projectName }}</td>
+          <td class="px-4 py-2">{{ item.clientName }}</td>
+          <td class="px-4 py-2">{{ item.startDate | date : "dd/mm/yy" }}</td>
+          <td class="px-4 py-2">{{ item.empName }}</td>
+          <td class="px-4 py-2">{{ item.empId }}</td>
+        </tr>
+      </tbody>
+      }
+    </table>
+  </section>
+
+  <section class="max-w-3xl p-6 bg-gray-900 shadow-lg rounded-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">Project Submission Form</h2>
+    <form [formGroup]="projectForm">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="col-span-2 md:col-span-1">
+          <label class="block font-medium text-slate-300 mb-1"
+            >Project Name</label
+          >
+          <input
+            type="text"
+            formControlName="projectName"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter project name"
+          />
+          @if(projectForm.controls['projectName'].touched){
+          <div class="text-xs">
+            @if(projectForm.controls['projectName'].errors?.['required']){
+            <span class="text-red-400">This is required</span>
+            } @if(projectForm.controls['projectName'].errors?.['minlength']){
+            <span class="text-red-400">Minimum 4 chracters is required</span>
+            }
+          </div>
+          }
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Start Date</label
+          >
+          <input
+            type="date"
+            formControlName="startDate"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Expected End Date</label
+          >
+          <input
+            type="date"
+            formControlName="expectedEndDate"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Contact Person</label
+          >
+          <input
+            formControlName="contactPerson"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter contact person"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Contact Person's Contact No</label
+          >
+          <input
+            formControlName="contactPersonContactNo"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter contact number"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Total Employees Working</label
+          >
+          <input
+            formControlName="totalEmpWorking"
+            type="number"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter total employees working"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Project Cost</label
+          >
+          <input
+            formControlName="projectCost"
+            type="number"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter project cost"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Project Description</label
+          >
+          <textarea
+            formControlName="projectDetails"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter project details"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1"
+            >Contact Person Email ID</label
+          >
+          <input
+            formControlName="contactPersonEmailId"
+            class="w-full p-2 border rounded-lg focus:ring focus:ring-blue-500"
+            placeholder="Enter contact person email"
+          />
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1" for="employees"
+            >Lead by Employee</label
+          >
+          <select formControlName="leadByEmpId" id="employees">
+            <option value="">Select Employee</option>
+            @for (item of employeeList; track $index) {
+            <option [value]="item.empId">{{ item.empName }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label class="block font-medium text-slate-300 mb-1" for="clients"
+            >Select Client</label
+          >
+          <select formControlName="clientId" id="clients">
+            <option value="">Select Client</option>
+            @for (item of clientList; track $index) {
+            <option [value]="item.clientId">
+              {{ item.contactPersonName }}
+            </option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-6 w-full flex gap-2 text-center">
+        <button
+          type="submit"
+          class="bg-rose-600 w-full text-white px-6 py-2 rounded-lg hover:opacity-75 focus:outline-none"
+        >
+          Reset
+        </button>
+        <button
+          (click)="onAddClient()"
+          type="submit"
+          class="bg-blue-600 w-full text-white px-6 py-2 rounded-lg hover:bg-blue-700 focus:outline-none"
+          [disabled]="projectForm.invalid"
+        >
+          Create Project
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
