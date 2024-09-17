@@ -1,0 +1,12 @@
+<div class="shadow-md p-6 rounded-md w-80">
+  <h2 class="text-lg font-bold mb-4">Select a Client</h2>
+  <select
+    class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+    (change)="onSelectClient($event)"
+  >
+    <option value="" disabled selected>Select a Client</option>
+    <option *ngFor="let client of clients">
+      {{ client.name }}
+    </option>
+  </select>
+</div>

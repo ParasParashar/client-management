@@ -36,3 +36,10 @@ export interface IClientProject {
     clientName: string;
     clientProjectId: number;
 }
+
+
+export interface IClient {
+    name: string;
+    contact: string;
+    project: string;
+}
